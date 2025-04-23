@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Do You Love Me?</title>
+<style>
+   body {
+     margin: 0;
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(to right, #ffcccc, #ffe6e6);
+     overflow: hidden;
+   }
+   h1, h2 {
+     text-align: center;
+     color: #d63384;
+     margin-top: 30px;
+   }
+   .button-container {
+     text-align: center;
+     margin-top: 50px;
+     position: relative;
+     height: 150px;
+   }
+   button {
+     padding: 15px 30px;
+     font-size: 18px;
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     transition: 0.3s;
+   }
+   #yesBtn {
+     background-color: #ff66b2;
+     color: white;
+     margin-right: 20px;
+   }
+   #noBtn {
+     background-color: #999;
+     color: white;
+     position: absolute;
+   }
+   #message {
+     display: none;
+     margin-top: 30px;
+     font-size: 22px;
+     color: #d63384;
+     text-align: center;
+   }
+   #timer {
+     margin-top: 20px;
+     text-align: center;
+     font-size: 18px;
+   }
+   .heart {
+     position: fixed;
+     width: 15px;
+     height: 15px;
+     background: red;
+     transform: rotate(45deg);
+     animation: float 5s infinite;
+     opacity: 0.7;
+   }
+   .heart::before,
+   .heart::after {
+     content: "";
+     position: absolute;
+     width: 15px;
+     height: 15px;
+     background: red;
+     border-radius: 50%;
+   }
+   .heart::before {
+     top: -7.5px;
+     left: 0;
+   }
+   .heart::after {
+     left: -7.5px;
+     top: 0;
+   }
+   @keyframes float {
+     0% {
+       transform: translateY(0) rotate(45deg);
+       opacity: 1;
+     }
+     100% {
+       transform: translateY(-100vh) rotate(45deg);
+       opacity: 0;
+     }
+   }
+</style>
+</head>
+<body>
+<h1>Do You Love Me?</h1>
+<div class="button-container">
+<button id="yesBtn">Yes</button>
+<button id="noBtn">No</button>
+</div>
+<div id="message">I knew it! I love you more than words can say!</div>
+<div id="timer">Together for: <span id="loveTime"></span></div>
+<script>
+   const noBtn = document.getElementById("noBtn");
+   const yesBtn = document.getElementById("yesBtn");
+   const message = document.getElementById("message");
+   noBtn.style.top = "60px";
+   noBtn.style.left = "50%";
+   noBtn.addEventListener("mouseover", () => {
+     const x = Math.random() * (window.innerWidth - 100);
+     const y = Math.random() * (window.innerHeight - 100);
+     noBtn.style.left = `${x}px`;
+     noBtn.style.top = `${y}px`;
+   });
+   yesBtn.addEventListener("click", () => {
+     message.style.display = "block";
+   });
+   // Heart Animation
+   setInterval(() => {
+     const heart = document.createElement("div");
+     heart.className = "heart";
+     heart.style.left = Math.random() * 100 + "vw";
+     heart.style.top = "100vh";
+     document.body.appendChild(heart);
+     setTimeout(() => {
+       heart.remove();
+     }, 5000);
+   }, 300);
+   // Love Timer (starting from June 22, 2024)
+   const startDate = new Date("2023-08-22T00:00:00");
+   const timerEl = document.getElementById("loveTime");
+   function updateTimer() {
+     const now = new Date();
+     const diff = now - startDate;
+     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+     timerEl.innerText = `${days} days, ${hours} hours, and ${minutes} minutes`;
+   }
+   setInterval(updateTimer, 1000);
+   // Sweet Exit Popup
+   window.onbeforeunload = function () {
+     return "Wait! One more kiss before you leave!";
+   };
+</script>
+</body>
+</html>
